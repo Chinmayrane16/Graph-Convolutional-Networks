@@ -36,7 +36,10 @@ class GraphCN(nn.Module):
         self.model = nn.ModuleList([GCL(hid_dims[i], hid_dims[i+1]) for i in range(len(hid_dims) - 2)])
         self.model.append(GCL(hid_dims[-2], hid_dims[-1], ifrelu=False))
         
-    def forward(self, A, X ):
+    def forward(self, x):
+        A, X = x
+        A = torch.squeeze(A, dim=0)
+        X = torch.squeeze(X, dim=0)
         A = normalize(A, add_self_loops=True)
         for i in range(len(self.model)):
             A, X = self.model[i]((A, X))
