@@ -1,1 +1,1 @@
-# Graph-Convolutional-Networks
+# Representation learning with Graph Convolutional Networks
