@@ -6,8 +6,8 @@ import torch
 from loss import UnsupervisedLoss
 import matplotlib.pyplot as plt
 
-class GDS(Dataset):
 
+class GDS(Dataset):
     def __init__(self):
         G = nx.karate_club_graph()
         self.A = nx.adjacency_matrix(G).todense()
@@ -15,9 +15,10 @@ class GDS(Dataset):
 
     def __getitem__(self, i):
         return (torch.Tensor(self.A).float(), self.emb), torch.Tensor(self.A).float()
-    
+
     def __len__(self):
         return 1
+
 
 dl = DataLoader(GDS(), batch_size=1)
 model = GraphCN(1, [2], 34)
@@ -31,10 +32,4 @@ with torch.no_grad():
 # plt.scatter(out[:, 0].numpy(), out[:, 1].numpy())
 nx.draw()
 plt.show()
-plt.savefig('emb.png')
-
-
-
-
-
-
+plt.savefig("emb.png")
